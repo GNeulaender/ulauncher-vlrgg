@@ -27,9 +27,14 @@ class DemoExtension(Extension):
 class KeywordQueryEventListener(EventListener):
 
     def on_event(self, event, extension):
-        logger.info(vlr.vlr_recent())
-        items = []
         logger.info('preferences %s' % json.dumps(extension.preferences))
+        items = [
+            ExtensionResultItem(icon='images/icon.png',
+                                name='News',
+                                description='Latests news from Vlr.gg',
+                                on_enter=ExtensionCustomAction({'type': 'request', 'name': 'news'},
+                                                               keep_app_open=True))
+        ]
         for i in range(5):
             item_name = extension.preferences['item_name']
             data = {'new_name': '%s %s was clicked' % (item_name, i)}
@@ -45,6 +50,18 @@ class ItemEnterEventListener(EventListener):
 
     def on_event(self, event, extension):
         data = event.get_data()
+        if data['type'] == 'request':
+            request = vlr.vlr_recent()
+            logger.info(vlr.vlr_upcoming())
+            items = []
+            for i in range(5):
+                news = request['data']['segments'][i]
+                items.append(ExtensionResultItem(icon='images/icon.png',
+                                                 name='%s %s' % (i, news['title']),
+                                                 description='%s' % news['description'],
+                                                 on_enter=HideWindowAction()))
+            return RenderResultListAction(items)
+
         return RenderResultListAction([ExtensionResultItem(icon='images/icon.png',
                                                            name=data['new_name'],
                                                            on_enter=HideWindowAction())])
