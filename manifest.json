@@ -1,18 +1,18 @@
 {
   "required_api_version": "^2.0.0",
-  "name": "Demo",
-  "description": "Demo extension",
-  "developer_name": "Aleksandr Gornostal",
+  "name": "vlr.gg extension",
+  "description": "Unofficial extension for the vlr.gg website",
+  "developer_name": "Guido Neulaender",
   "icon": "images/icon.png",
   "options": {
     "query_debounce": 0.05
   },
   "preferences": [
     {
-      "id": "demo_kw",
+      "id": "vlr_gg",
       "type": "keyword",
-      "name": "Demo",
-      "default_value": "dm"
+      "name": "vlr.gg",
+      "default_value": "vlr"
     },
     {
       "id": "item_name",

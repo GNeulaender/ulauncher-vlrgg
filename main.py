@@ -9,6 +9,10 @@ from ulauncher.api.shared.action.RenderResultListAction import RenderResultListA
 from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAction
 from ulauncher.api.shared.action.HideWindowAction import HideWindowAction
 
+from api.scrape import Vlr
+
+vlr = Vlr()
+
 logger = logging.getLogger(__name__)
 
 
@@ -23,6 +27,7 @@ class DemoExtension(Extension):
 class KeywordQueryEventListener(EventListener):
 
     def on_event(self, event, extension):
+        logger.info(vlr.vlr_recent())
         items = []
         logger.info('preferences %s' % json.dumps(extension.preferences))
         for i in range(5):
